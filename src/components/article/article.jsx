@@ -2,49 +2,62 @@ import React, { Component } from 'react';
 
 import './_article.scss';
 
-import Comments from './comments';
-
-function handleClick() {
+function contentClick() {
   this.setState({
-    isOpen: !this.state.isOpen
-  })
+    isOpen: !this.state.isOpen,
+    commentOpen: false
+  });
+}
+
+function commentClick() {
+  this.setState({
+    commentOpen: !this.state.commentOpen
+  });
 }
 
 class Article extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOpen: false
+      isOpen: false,
+      commentOpen: false
     };
-    this.handleClick = handleClick.bind(this);
+    this.contentClick = contentClick.bind(this);
+    this.commentClick = commentClick.bind(this);
   }
   render() {
-    const content = this.state.isOpen && (
-      <div className='news-article__content'>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aliquid
-          amet commodi error et fuga labore, pariatur saepe similique sint, soluta
-          tempore temporibus, totam voluptas voluptatem. Amet assumenda autem, dicta
-          dignissimos doloremque eaque esse harum minus mollitia obcaecati praesentium
-          provident, quam saepe sed sint sunt, tempore! Accusantium animi iure rem.
-        </p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aliquid
-          amet commodi error et fuga labore, pariatur saepe similique sint, soluta
-          tempore temporibus, totam voluptas voluptatem. Amet assumenda autem, dicta
-          dignissimos doloremque eaque esse harum minus mollitia obcaecati praesentium
-          provident, quam saepe sed sint sunt, tempore! Accusantium animi iure rem.
-        </p>
-        <Comments count={2} />
+    const { article } = this.props;
+    const commentList = article.comments;
+    const listItems = commentList.map(comment => <p key={comment.id}>{comment.text}</p>);
+    const comments = this.state.commentOpen && (
+      <div className='comments__content'>
+        {listItems}
       </div>
     );
+    const content = this.state.isOpen && (
+      <div className='news-article__content'>
+        <p>{article.text}</p>
+        <div className='comments'>
+          <div className='comments__title'>
+            <h2>Comments <span>({commentList.length})</span></h2>
+            <button onClick={this.commentClick}>
+              {this.state.commentOpen ? 'hide comments' : 'open comments'}
+            </button>
+          </div>
+          {comments}
+        </div>
+      </div>
+    );
+
     return (
       <article className='news-article'>
         <div className='news-article__title'>
-          <h2>Lorem ipsum dolor sit amet.</h2>
-          <button onClick={this.handleClick}>
+          <h2>{article.title}</h2>
+          <button onClick={this.contentClick}>
             { this.state.isOpen ? 'hide article' : 'show article' }
           </button>
         </div>
-        <h3>{ new Date().toDateString() }</h3>
+        <h3>{article.date}</h3>
         {content}
       </article>
     );

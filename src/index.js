@@ -1,12 +1,10 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
 
 import './styles/main.scss';
 
-import Article from './components/article';
+import ArticleList from './components';
+import news from './articles';
 
-ReactDOM.render([
-    <div key='one'><Article /></div>,
-    <div key='two'><Article /></div>],
-  document.getElementById('root')
-);
+render(<ArticleList articles={news} />, document.getElementById('root'));
+
