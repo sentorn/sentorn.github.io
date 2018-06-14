@@ -1,3 +1,4 @@
-import ArticleList from './article-list';
+import App from './App';
+import '../styles/main.scss';
 
-export default ArticleList;
+export default App;

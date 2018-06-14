@@ -1,0 +1,12 @@
+.news-article {
+  button {
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(0,100,255,.7);
+    cursor: pointer;
+    transition: color .3s;
+    &:hover {
+      color: rgba(0,100,255,1);
+    }
+  }
+}

@@ -1,10 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 
-import './styles/main.scss';
+import App from './components';
 
-import ArticleList from './components';
-import news from './articles';
-
-render(<ArticleList articles={news} />, document.getElementById('root'));
+render(<App />, document.getElementById('root'));
 
