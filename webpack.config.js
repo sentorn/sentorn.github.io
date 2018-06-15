@@ -4,7 +4,6 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const path = require('path');
-const ModernizrWebpackPlugin = require('modernizr-webpack-plugin');
 
 module.exports = {
   entry: './src/index.js',
@@ -19,10 +18,7 @@ module.exports = {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['env', 'react', 'stage-0']
-          }
+          loader: 'babel-loader'
         }
       },
       {
@@ -64,9 +60,6 @@ module.exports = {
     }),
     new MiniCssExtractPlugin({
       filename: 'css/[name].css'
-    }),
-    new ModernizrWebpackPlugin({
-      filename: 'js/modernizr.js'
     })
   ],
   optimization: {

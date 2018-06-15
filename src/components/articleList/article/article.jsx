@@ -7,12 +7,6 @@ import './_article.scss';
 import Button from './button';
 import CommentList from './commentList';
 
-const twoLines = (el) => {
-  const style = window.getComputedStyle(el);
-  const height = style.getPropertyValue('line-height');
-  return parseInt(height, 10) * 2;
-};
-
 class Article extends Component {
   constructor(props) {
     super(props);
@@ -23,29 +17,37 @@ class Article extends Component {
     this.contentText = React.createRef();
   }
   componentDidMount() {
-    if (!this.state.isOpen) {
-      shave(this.contentText.current, twoLines(this.contentText.current));
-    }
+    window.addEventListener('resize', () => {
+      this.setHeight();
+    });
+    this.setHeight();
   }
+  componentWillUnmount() {
+    window.removeEventListener('resize', () => {
+      this.setHeight();
+    });
+  }
+  setHeight() {
+    const height = this.getLinesHeight(this.contentText.current);
+    shave(this.contentText.current, this.state.isOpen ? Infinity : height);
+  }
+  getLinesHeight = (el) => {
+    const style = window.getComputedStyle(el);
+    const height = style.getPropertyValue('line-height');
+    return parseInt(height, 10) * 2;
+  };
   contentClick = () => {
     if (this.state.isOpen) {
       this.setState({
         isOpen: false,
         commentOpen: false
       });
-      shave(this.contentText.current, twoLines(this.contentText.current));
+      shave(this.contentText.current, this.getLinesHeight(this.contentText.current));
     } else {
       this.setState({
         isOpen: true
       });
-      shave(this.contentText.current, 'none');
-      const ch = this.contentText.current.children;
-      for (let i = 0; i < ch.length; i++) {
-        if (ch[i].classList.contains('js-shave-char')) {
-          ch[i].innerHTML = '';
-        }
-        ch[i].removeAttribute('style');
-      }
+      shave(this.contentText.current, Infinity);
     }
   };
   commentClick = () => {

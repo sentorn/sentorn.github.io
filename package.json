@@ -6,7 +6,7 @@
   "scripts": {
     "start": "webpack-dev-server --open",
     "build": "webpack --mode production",
-    "serve": "webpack-serve"
+    "serve": "webpack-serve --open"
   },
   "author": "Mylashenko",
   "license": "ISC",
@@ -41,7 +41,6 @@
   },
   "dependencies": {
     "autoprefixer": "^8.6.0",
-    "modernizr-webpack-plugin": "^1.0.7",
     "npm": "^6.1.0",
     "prop-types": "^15.6.1",
     "react": "^16.4.0",
