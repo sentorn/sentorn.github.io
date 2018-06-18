@@ -8,16 +8,16 @@ import './_article.scss';
 import Button from './button';
 import CommentList from './commentList';
 
-const { Provider, Consumer } = React.createContext();
+import SwitchContext from '../../context';
 
-const RemoveBtn = () => (
-  <Consumer>
+const RemoveBtn = (props) => (
+  <SwitchContext.Consumer>
     { context =>
       (context.state.visibleRemove
-        ? <button className='btn' onClick={context.func}>remove article</button>
+        ? <button className='btn' onClick={props.removeArticle}>remove article</button>
         : null)
     }
-  </Consumer>
+  </SwitchContext.Consumer>
 );
 
 class Article extends Component {
@@ -27,8 +27,7 @@ class Article extends Component {
       isOpen: false,
       commentOpen: false,
       isVisible: true,
-      modalIsOpen: false,
-      visibleRemove: true
+      modalIsOpen: false
     };
     this.contentText = React.createRef();
   }
@@ -52,12 +51,6 @@ class Article extends Component {
     const height = style.getPropertyValue('line-height');
     return parseInt(height, 10) * 2;
   };
-  openModal = () => {
-    this.setState({ modalIsOpen: true });
-  };
-  closeModal = () => {
-    this.setState({ modalIsOpen: false });
-  };
   contentClick = () => {
     if (this.state.isOpen) {
       this.setState({
@@ -78,11 +71,13 @@ class Article extends Component {
     });
   };
   removeClick = () => {
-    this.closeModal();
     this.setState({ isVisible: false });
   };
-  switchClick = () => {
-    this.setState({ visibleRemove: !this.state.visibleRemove });
+  openModal = () => {
+    this.setState({ modalIsOpen: true });
+  };
+  closeModal = () => {
+    this.setState({ modalIsOpen: false });
   };
   render() {
     const { article } = this.props;
@@ -112,34 +107,23 @@ class Article extends Component {
             close={this.closeModal}
             removeArticle={this.removeClick}
           />
-          <Provider value={{
-            state: this.state,
-            func: this.openModal
-          }}
-          >
-            <article className='news-article'>
-              <div className='news-article__title'>
-                <div className='news-article__title-left'>
-                  <h2>{article.title}</h2>
-                  <Button
-                    nameOfClass='btn'
-                    contentClick={this.contentClick}
-                    text={this.state.isOpen ? 'hide more article' : 'show more article'}
-                  />
-                </div>
-                <div>
-                  <RemoveBtn />
-                  <Button
-                    nameOfClass='btn'
-                    contentClick={this.switchClick}
-                    text='switch'
-                  />
-                </div>
+          <article className='news-article'>
+            <div className='news-article__title'>
+              <div className='news-article__title-left'>
+                <h2>{article.title}</h2>
+                <Button
+                  nameOfClass='btn'
+                  contentClick={this.contentClick}
+                  text={this.state.isOpen ? 'hide more article' : 'show more article'}
+                />
               </div>
-              <h3>{article.date}</h3>
-              {content}
-            </article>
-          </Provider>
+              <div>
+                <RemoveBtn removeArticle={this.openModal} />
+              </div>
+            </div>
+            <h3>{article.date}</h3>
+            {content}
+          </article>
         </React.Fragment>
       );
     }

@@ -3,11 +3,10 @@ import PropTypes from 'prop-types';
 import Article from './article';
 
 const ArticleList = ({ articles }) => {
-  const Fragment = React.Fragment;
   const listItems = articles.map(article =>
     <Article key={article.id} article={article} />);
   return (
-    <Fragment>{ listItems }</Fragment>
+    <React.Fragment>{ listItems }</React.Fragment>
   );
 };
 

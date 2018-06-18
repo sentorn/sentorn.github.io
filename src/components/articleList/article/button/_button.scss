@@ -16,4 +16,15 @@
     margin-top: 20px;
     font-size: 16px;
   }
+  &_switch {
+    font-size: 16px;
+  }
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
 }

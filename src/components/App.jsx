@@ -2,15 +2,33 @@ import React from 'react';
 
 import ArticleList from './articleList';
 import news from './articleList/articles';
+import Button from './articleList/article/button';
 
-const App = () => {
-  const Fragment = React.Fragment;
-  return (
-    <Fragment>
-      <h1>News Post</h1>
-      <ArticleList articles={news} />
-    </Fragment>
-  );
-};
+import SwitchContext from './context';
+
+class App extends React.Component {
+  state = {
+    visibleRemove: true
+  };
+  switchClick = () => {
+    this.setState({ visibleRemove: !this.state.visibleRemove });
+  };
+  render() {
+    return (
+      <React.Fragment>
+        <SwitchContext.Provider value={{
+          state: this.state
+        }}
+        >
+          <h1>News Post</h1>
+          <div className="button-container">
+            <Button nameOfClass='btn btn_switch' contentClick={this.switchClick} text='Switch' />
+          </div>
+          <ArticleList articles={news} />
+        </SwitchContext.Provider>
+      </React.Fragment>
+    );
+  }
+}
 
 export default App;
