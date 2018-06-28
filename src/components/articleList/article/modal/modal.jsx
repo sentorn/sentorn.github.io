@@ -26,15 +26,16 @@ const ModalWindow = props => (
     style={modalStyles}
     contentLabel="Example Modal"
   >
-    <h3>Are you sure, you want to remove this article?</h3>
-    <Button contentClick={props.removeArticle} text='Remove' nameOfClass='btn btn_modal' />
+    <h3>Are you sure, you want to remove this {props.name}?</h3>
+    <Button contentClick={props.removeElement} text='Remove' nameOfClass='btn btn_modal' />
   </Modal>
 );
 
 ModalWindow.propTypes = {
   open: PropTypes.bool.isRequired,
   close: PropTypes.func.isRequired,
-  removeArticle: PropTypes.func.isRequired
+  removeElement: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired
 };
 
 export default ModalWindow;

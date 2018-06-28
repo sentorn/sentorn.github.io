@@ -22,7 +22,11 @@ class App extends React.Component {
         >
           <h1>News Post</h1>
           <div className="button-container">
-            <Button nameOfClass='btn btn_switch' contentClick={this.switchClick} text='Switch' />
+            <Button
+              nameOfClass='btn'
+              contentClick={this.switchClick}
+              text={this.state.visibleRemove ? 'hide buttons' : 'show buttons'}
+            />
           </div>
           <ArticleList articles={news} />
         </SwitchContext.Provider>

@@ -10,16 +10,6 @@ import CommentList from './commentList';
 
 import SwitchContext from '../../context';
 
-const RemoveBtn = (props) => (
-  <SwitchContext.Consumer>
-    { context =>
-      (context.state.visibleRemove
-        ? <button className='btn' onClick={props.removeArticle}>remove article</button>
-        : null)
-    }
-  </SwitchContext.Consumer>
-);
-
 class Article extends Component {
   constructor(props) {
     super(props);
@@ -82,7 +72,9 @@ class Article extends Component {
   render() {
     const { article } = this.props;
     const commentList = article.comments;
-    const comments = this.state.commentOpen && <CommentList comments={commentList} />;
+    const comments = (
+      this.state.commentOpen &&
+      <CommentList comments={commentList} />);
     const content = (
       <div className='news-article__content'>
         <p ref={this.contentText}>{article.text}</p>
@@ -105,7 +97,8 @@ class Article extends Component {
           <Modal
             open={this.state.modalIsOpen}
             close={this.closeModal}
-            removeArticle={this.removeClick}
+            removeElement={this.removeClick}
+            name='Article'
           />
           <article className='news-article'>
             <div className='news-article__title'>
@@ -117,9 +110,13 @@ class Article extends Component {
                   text={this.state.isOpen ? 'hide more article' : 'show more article'}
                 />
               </div>
-              <div>
-                <RemoveBtn removeArticle={this.openModal} />
-              </div>
+              <SwitchContext.Consumer>
+                { context =>
+                  (context.state.visibleRemove
+                    ? <button className='btn' onClick={this.openModal}>remove article</button>
+                    : null)
+                }
+              </SwitchContext.Consumer>
             </div>
             <h3>{article.date}</h3>
             {content}

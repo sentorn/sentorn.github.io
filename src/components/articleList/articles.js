@@ -12,12 +12,14 @@ export default [
     comments: [
       {
         id: 'saefaszdf765',
+        author: 'Jack Davidson',
         text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.' +
         ' Assumenda debitis delectus impedit laboriosam placeat, quidem quod?' +
         ' Animi cum dignissimos est excepturi fugit ipsa laborum, minus neque provident saepe sint ullam?'
       },
       {
         id: '755dfj8765',
+        author: 'Nina Nilson',
         text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.' +
         ' Accusantium at cum dolorem exercitationem fugit, illo minus quis?' +
         ' Architecto beatae cupiditate dicta dolor dolorum, est excepturi' +
@@ -26,6 +28,7 @@ export default [
       },
       {
         id: 'sae653faszdf765',
+        author: 'Adam Fishman',
         text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.' +
         ' Assumenda debitis delectus impedit laboriosam placeat, quidem quod?' +
         ' Animi cum dignissimos est excepturi fugit ipsa laborum, minus neque provident saepe sint ullam?'
@@ -45,12 +48,14 @@ export default [
     comments: [
       {
         id: 'saefa123szdf765',
+        author: 'Jack Davidson',
         text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.' +
         ' Assumenda debitis delectus impedit laboriosam placeat, quidem quod?' +
         ' Animi cum dignissimos est excepturi fugit ipsa laborum, minus neque provident saepe sint ullam?'
       },
       {
         id: '7fg355dfj8765',
+        author: 'Nina Nilson',
         text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.' +
         ' Accusantium at cum dolorem exercitationem fugit, illo minus quis?' +
         ' Architecto beatae cupiditate dicta dolor dolorum, est excepturi' +
@@ -72,6 +77,7 @@ export default [
     comments: [
       {
         id: 'szdf765',
+        author: 'Jack Davidson',
         text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.' +
         ' Assumenda debitis delectus impedit laboriosam placeat, quidem quod?' +
         ' Animi cum dignissimos est excepturi fugit ipsa laborum, minus neque provident saepe sint ullam?'
