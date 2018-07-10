@@ -18,6 +18,7 @@ module.exports = {
     "prefer-destructuring": ["error", {
       "array": true,
       "object": false,
-    }]
+    }],
+    "react/jsx-no-bind": 0
   }
 };

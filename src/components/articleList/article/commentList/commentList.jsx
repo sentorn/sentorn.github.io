@@ -1,42 +1,45 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Comment from './comment';
-import Modal from '../modal';
+import Button from '../button';
 
 class CommentList extends React.Component {
   state = {
-    modalIsOpen: false,
-    commentList: this.props.comments
+    commentList: this.props.comments,
+    commentOpen: false
   };
-  openModal = () => {
-    // this.setState({ modalIsOpen: true });
+  commentClick = () => {
+    this.setState({
+      commentOpen: !this.state.commentOpen
+    });
   };
-  closeModal = () => {
-    this.setState({ modalIsOpen: false });
-  };
-  removeClick = () => {
-    // here we need to remove list item by id
+  removeItem = (id) => {
+    this.setState({ commentList: this.state.commentList.filter(comment => id !== comment.id) });
   };
   render() {
+    const comments = (
+      this.state.commentOpen && (
+        this.state.commentList.map(comment => (
+          <Comment
+            key={comment.id}
+            text={comment.text}
+            author={comment.author}
+            remove={this.removeItem.bind(this, comment.id)}
+          />
+        ))
+      ));
     return (
-      <React.Fragment>
-        <Modal
-          open={this.state.modalIsOpen}
-          close={this.closeModal}
-          removeElement={this.removeClick}
-          name='Comment'
-        />
-        {
-          this.state.commentList.map(comment =>
-            (<Comment
-              key={comment.id}
-              text={comment.text}
-              author={comment.author}
-              modalFunc={this.openModal}
-            />))
-        }
-      </React.Fragment>
-
+      <div className='comments'>
+        <div className='comments__title'>
+          <h2>Comments <span>{`(${this.state.commentList.length})`}</span></h2>
+          <Button
+            nameOfClass='btn'
+            contentClick={this.commentClick}
+            text={this.state.commentOpen ? 'close comments' : 'open comments'}
+          />
+        </div>
+        {comments}
+      </div>
     );
   }
 }

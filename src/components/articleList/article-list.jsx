@@ -1,17 +1,38 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Article from './article';
+// import { removeArticle } from '../../reducers/articleReducer';
 
-const ArticleList = ({ articles }) => {
-  const listItems = articles.map(article =>
-    <Article key={article.id} article={article} />);
-  return (
-    <React.Fragment>{ listItems }</React.Fragment>
-  );
-};
+class ArticleList extends React.Component {
+  state = {
+    articleList: this.props.list
+  };
+  removeItem = (id) => {
+    this.setState({ articleList: this.state.articleList.filter(article => id !== article.id) });
+  };
+  render() {
+    return (
+      this.state.articleList.map(article => (
+        <Article
+          key={article.id}
+          article={article}
+          remove={this.removeItem.bind(this, article.id)}
+        />
+      ))
+    );
+  }
+}
 
-ArticleList.propTypes = {
-  articles: PropTypes.arrayOf(PropTypes.object).isRequired
-};
+const mapStateToProps = state => ({ list: state });
 
-export default ArticleList;
+const mapDispatchToProps = dispatch => ({
+  // removeArticle: () =>
+  //   dispatch({
+  //     type: 'REMOVE_ARTICLE'
+  //   })
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ArticleList);
